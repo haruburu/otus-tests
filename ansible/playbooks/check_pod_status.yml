@@ -8,6 +8,7 @@
       command: kubectl get pod -n "{{ item }}"
       register: pod_status
       with_items:
-      - default
+      - prometheus
+      - grafana
       failed_when:
       - "'Running' is not in pod_status.stdout"
