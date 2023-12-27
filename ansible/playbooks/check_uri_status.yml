@@ -4,17 +4,13 @@
 - hosts: ansible
 
   tasks:
+    - name: Make POST request
+      ansible.builtin.uri:
+        url: http://127.0.0.1:5000/
+        method: GET
+        body_format: json
+      register: response
 
-    - name: check URL status Grafana
-      uri:
-        url: http://<EXTERNAL-IP>:3000
-    
-    - name: check URL status Prometheus
-      uri:
-        url: http://<EXTERNAL-IP>:9090
-
-    - name: check that a page returns successfully but fail if the down on targets page
-      uri:
-        url: 'http://<EXTERNAL-IP>:9090/targets?search='
-        return_content: true
-      register: prometheus
+    - name: Print response
+      debug:
+        var: response
